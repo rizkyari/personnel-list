@@ -1,0 +1,35 @@
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T');
+
+table {
+  width: 400px;
+  border: solid black 2px;
+  margin: auto;
+  margin-top: 3%;
+  height: 50px;
+}
+
+.search {
+  margin: auto;
+  width: 500px;
+}
+.name {
+  width: 200px;
+  line-height: 50px;
+}
+
+img {
+  float: left;
+  padding-right: 15px;
+  line-height: 50px;
+  padding-top: 5px;
+}
+
+.bb {
+  float: right;
+  position: relative;
+  margin-top: -45px;
+}
+
+table td {
+  border: solid black 1px;
+}
