@@ -1,6 +1,7 @@
 import React from "react";
 import { components } from "react-select";
 import Select from "react-select";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 
 import "./App.css";
@@ -11,13 +12,17 @@ export default class App extends React.Component {
     this.state = {
       selectedOption: null,
       data: [], //Initial 5 data
-      dataSearch: [] //Initial 10 data
+      dataSearch: [], //Initial 10 data
+      modal: false,
+      modalperson: null,
+      modalidx: null
     };
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
     axios.get(`https://randomuser.me/api/?results=10`).then(res => {
-      const data = res.data.results.filter((item, index) => index < 5);
+      const data = res.data.results.filter((item, index) => index < 0);
       const dataSearch = res.data.results;
       this.setState({ data });
       this.setState({ dataSearch });
@@ -25,11 +30,27 @@ export default class App extends React.Component {
     });
   }
 
-  delete = (item, idx) => {
-    alert("delete " + item.name.first);
-    this.state.data.splice(idx, 1);
+  delete = () => {
+    this.state.data.splice(this.state.modalidx, 1);
     this.setState({ data: this.state.data });
+    this.toggle();
   };
+
+  toggledel(person, index) {
+    this.setState({ modalperson: person });
+    this.setState({ modalidx: index });
+    this.setState({
+      modal: !this.state.modal
+    });
+    console.log(this.state.modalperson);
+    console.log(this.state.modalidx);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   handleChange = selectedOption => {
     this.setState({ selectedOption }, () => {
@@ -52,16 +73,10 @@ export default class App extends React.Component {
     }));
     const singleOption = props => (
       <Option {...props}>
-        <div
-          style={{
-            height: 40
-          }}
-        >
+        <div style={{ height: 40 }}>
           <img
             alt="optImg"
-            style={{
-              height: 35
-            }}
+            style={{ height: 35 }}
             src={props.data.entry.picture.thumbnail}
           />
           <div
@@ -104,35 +119,60 @@ export default class App extends React.Component {
       <div>
         <div className="search">
           <Select
-            placeholder="Select the user ..."
+            placeholder="Pilih personalia..."
             onChange={this.handleChange}
             components={{ Option: singleOption, SingleValue: singleValue }}
             value={selectedOption}
             options={options}
           />
         </div>
-        <table>
-          <tbody>
-            {data.map((person, index) => {
-              return (
+        <table className="maintable">
+          {data.map((person, index) => {
+            return (
+              <tbody>
                 <tr key={index}>
                   <td rowSpan="1">
                     <img src={person.picture.thumbnail} alt="profile pic." />
-                    <h5 className="name">{person.name.first} </h5>
+                    <h5 className="name">
+                      {person.name.first} {person.name.last}{" "}
+                    </h5>
 
                     <div className="bb">
-                      <button onClick={() => this.edit(person, index)}>
+                      <Button
+                        color="primary"
+                        onClick={() => this.edit(person, index)}
+                      >
                         edit
-                      </button>{" "}
-                      <button onClick={() => this.delete(person, index)}>
+                      </Button>{" "}
+                      <Button
+                        color="danger"
+                        //onClick={() => this.delete(person, index)}
+                        onClick={() => this.toggledel(person, index)}
+                      >
                         Delete
-                      </button>
+                      </Button>
                     </div>
                   </td>
                 </tr>
-              );
-            })}
-          </tbody>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                  <ModalBody>Yakin mau dihapus?</ModalBody>
+                  <ModalFooter>
+                    <Button color="primary" onClick={() => this.delete()}>
+                      Delete
+                    </Button>{" "}
+                    <Button color="secondary" onClick={this.toggle}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+              </tbody>
+            );
+          })}
         </table>
       </div>
     );

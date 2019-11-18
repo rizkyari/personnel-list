@@ -1,7 +1,7 @@
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T');
 
 table {
-  width: 400px;
+  width: 500px;
   border: solid black 2px;
   margin: auto;
   margin-top: 3%;
@@ -13,7 +13,7 @@ table {
   width: 500px;
 }
 .name {
-  width: 200px;
+  width: 300px;
   line-height: 50px;
 }
 
@@ -28,6 +28,7 @@ img {
   float: right;
   position: relative;
   margin-top: -45px;
+  margin-right: 10px;
 }
 
 table td {
