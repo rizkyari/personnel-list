@@ -139,7 +139,7 @@ export default class App extends React.Component {
                     <div className="bb">
                       <Button
                         color="primary"
-                        onClick={() => this.edit(person, index)}
+                        // onClick={() => this.edit(person, index)}
                       >
                         edit
                       </Button>{" "}
