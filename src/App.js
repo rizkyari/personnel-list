@@ -136,7 +136,6 @@ export default class App extends React.Component {
                     <h5 className="name">
                       {person.name.first} {person.name.last}{" "}
                     </h5>
-
                     <div className="bb">
                       <Button
                         color="primary"
@@ -159,14 +158,16 @@ export default class App extends React.Component {
                   toggle={this.toggle}
                   className={this.props.className}
                 >
-                  <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                  <ModalBody>Yakin mau dihapus?</ModalBody>
+                  <ModalHeader toggle={this.toggle}>
+                    Delete Personalia
+                  </ModalHeader>
+                  <ModalBody>Yakin ingin menghapus personalia ini?</ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={() => this.delete()}>
-                      Delete
+                      Ya
                     </Button>{" "}
                     <Button color="secondary" onClick={this.toggle}>
-                      Cancel
+                      Tidak
                     </Button>
                   </ModalFooter>
                 </Modal>
